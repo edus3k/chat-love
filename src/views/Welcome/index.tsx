@@ -8,7 +8,6 @@ TouchableOpacity
 
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 
 import iconApp from '@assets/mascot.png';
 import { StackTypes } from '@routes/Stacks';

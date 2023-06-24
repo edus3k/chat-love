@@ -10,32 +10,35 @@ TouchableOpacity
 import React, {useState} from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import {useNavigation} from '@react-navigation/native';
 
 import IconApp from '@components/IconApp';
 import imageBack from '@assets/loving.png';
-import InputEmail from '@components/InputEmail';
-import InputPassword from '@components/InputPassword';
+import { StackTypes } from '@routes/Stacks';
 
 const Signin = () => {
-
+  const navigation = useNavigation<StackTypes>();
   const [email, setEmail] = useState('');
   const [errEmail, setErrEmail] = useState('') //*Email informado errado.
   const [password, setPassword] = useState('');
   const [errPassword, setErrPassword] = useState('') //*Senha informado errado.
 
   function login(){
+    navigation.navigate('Home');
     console.log('Entrado no app!');
   }
 
-  function register(){
+  const register = ()=>{
+    navigation.navigate('CreateUsers');
     console.log('Registrando no app!');
   }
 
-  function recover(){
+  const recover = ()=>{
+    navigation.navigate('RecoverUsers');
     console.log('Recuperando senha!');
   }
 
-  function validation(){
+  const validation = ()=>{
     if(email != null && password != null){
       login();
     }
@@ -115,16 +118,25 @@ const Signin = () => {
             </View>
               
             <View style={styles.container_inputs}>
-              <Text style={styles.label_recover}>Esqueceu sua senha? Entre aqui!</Text>
+              <Text
+              onPress={recover} 
+              style={styles.label_recover}>
+                Esqueceu sua senha? Entre aqui!
+              </Text>
             </View>
+
             <View style={styles.container_inputs}>
-              <TouchableOpacity style={styles.button_login}>
+              <TouchableOpacity 
+              onPress={validation}
+              style={styles.button_login}>
                 <Text style={styles.label_login}>LOGIN</Text>
               </TouchableOpacity>
             </View>
 
             <View  style={styles.container_inputs}>
-              <TouchableOpacity style={styles.button_register}>
+              <TouchableOpacity 
+              onPress={register}
+              style={styles.button_register}>
                 <Text style={styles.label_register}>
                   Não possui uma conta? Cadastre-se!
                 </Text>

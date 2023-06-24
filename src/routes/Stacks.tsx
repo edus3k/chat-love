@@ -22,8 +22,8 @@ const Stacks = () =>{
     return(
         <Stack.Navigator>
             <Stack.Screen
-                name='Signin'
-                component={Signin}
+                name='RecoverUsers'
+                component={RecoverUsers}
                 options={{headerShown: false}}
             />
             <Stack.Screen
@@ -32,8 +32,8 @@ const Stacks = () =>{
                 options={{headerShown: false}}
             />
             <Stack.Screen
-                name='RecoverUsers'
-                component={RecoverUsers}
+                name='Signin'
+                component={Signin}
                 options={{headerShown: false}}
             />
             <Stack.Screen

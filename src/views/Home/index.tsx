@@ -8,7 +8,7 @@ Text,
 const Home = () => {
     return (
     <View style={styles.container}>
-        Profiler
+        HOME
     </View>
     );
 }
