@@ -21,6 +21,12 @@ export type StackTypes = NativeStackNavigationProp<StackNavigation>
 const Stacks = () =>{
     return(
         <Stack.Navigator>
+             <Stack.Screen
+                name='CreateUsers'
+                component={CreateUsers}
+                options={{headerShown: false}}
+            />
+            
             <Stack.Screen
                 name='RecoverUsers'
                 component={RecoverUsers}
@@ -36,11 +42,7 @@ const Stacks = () =>{
                 component={Signin}
                 options={{headerShown: false}}
             />
-            <Stack.Screen
-                name='CreateUsers'
-                component={CreateUsers}
-                options={{headerShown: false}}
-            />
+           
             <Stack.Screen
                 name='Home'
                 component={Home}

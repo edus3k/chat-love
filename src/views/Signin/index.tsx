@@ -23,9 +23,9 @@ const Signin = () => {
   const [password, setPassword] = useState('');
   const [errPassword, setErrPassword] = useState('') //*Senha informado errado.
 
-  function login(){
-    navigation.navigate('Home');
+  const login = ()=>{
     console.log('Entrado no app!');
+    navigation.navigate('Home');
   }
 
   const register = ()=>{
@@ -39,24 +39,21 @@ const Signin = () => {
   }
 
   const validation = ()=>{
-    if(email != null && password != null){
+    if(email != '' && password != ''){
       login();
     }
-    if (email == null && password == null) {
+    if (email == '' && password == '') {
       setErrEmail('*Email informado errado.');
       setErrPassword('*Email informado errado.');
       Vibration.vibrate();
-      return
     }
-    if (email == null) {
+    if (email == '') {
       setErrEmail('*Email informado errado.');
       Vibration.vibrate();
-      return
     }
-    if (password == null) {
+    if (password == '') {
       setErrPassword('*Email informado errado.');
       Vibration.vibrate();
-      return
     }
   }
 
@@ -84,7 +81,7 @@ const Signin = () => {
             <Animatable.View
             style={styles.logo}
             animation={'fadeInDown'}
-            delay={800}>
+            delay={1000}>
               <IconApp/>
             </Animatable.View>
 
@@ -93,7 +90,7 @@ const Signin = () => {
           <Animatable.View
           style={styles.from_inputs}
           animation={'fadeInUp'}
-          delay={400}>
+          delay={800}>
 
             <View style={styles.container_inputs}>
               <Text style={styles.lable}>Email</Text>

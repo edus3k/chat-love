@@ -7,7 +7,9 @@
       "@": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@config/*": ["./src/config/*"],
       "@routes/*": ["./src/routes/*"],
+      "typeRoots": ["./src/types"],
       "@views/*": ["./src/views/*"],
       "underscore": ["lodash"]
     }

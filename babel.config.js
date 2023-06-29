@@ -13,6 +13,13 @@ module.exports = function(api) {
             "@views": "./src/views",
           }
         }
+      ],
+      [require('module:react-native-dotenv'), 
+        {
+          "envName": "APP_ENV",
+          "moduleName": "@env",
+          "path": ".env",
+        }
       ]
     ]
   };

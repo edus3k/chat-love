@@ -8,7 +8,7 @@ Text,
 const Home = () => {
     return (
     <View style={styles.container}>
-        HOME
+        <Text>HOME</Text>
     </View>
     );
 }
