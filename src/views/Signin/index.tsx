@@ -12,20 +12,30 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import  {auth} from '@config/firebase';
+
 import IconApp from '@components/IconApp';
 import imageBack from '@assets/loving.png';
 import { StackTypes } from '@routes/Stacks';
 
 const Signin = () => {
   const navigation = useNavigation<StackTypes>();
+  const usersAuth = auth;
   const [email, setEmail] = useState('');
   const [errEmail, setErrEmail] = useState('') //*Email informado errado.
   const [password, setPassword] = useState('');
   const [errPassword, setErrPassword] = useState('') //*Senha informado errado.
 
   const login = ()=>{
-    console.log('Entrado no app!');
-    navigation.navigate('Home');
+    signInWithEmailAndPassword(usersAuth, email, password)
+      .then(() => {
+        console.log('Entrado no app!');
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        console.log({erro: err, msg: 'Erro ao Entrar!'});
+      });
   }
 
   const register = ()=>{

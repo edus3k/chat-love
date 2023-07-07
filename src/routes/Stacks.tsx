@@ -22,6 +22,11 @@ const Stacks = () =>{
     return(
         <Stack.Navigator>
              <Stack.Screen
+                name='Signin'
+                component={Signin}
+                options={{headerShown: false}}
+            />
+             <Stack.Screen
                 name='CreateUsers'
                 component={CreateUsers}
                 options={{headerShown: false}}
@@ -37,11 +42,7 @@ const Stacks = () =>{
                 component={Welcome}
                 options={{headerShown: false}}
             />
-            <Stack.Screen
-                name='Signin'
-                component={Signin}
-                options={{headerShown: false}}
-            />
+           
            
             <Stack.Screen
                 name='Home'
