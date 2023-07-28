@@ -1,268 +1,212 @@
+import React, { useState } from 'react';
 import { 
-StyleSheet, 
-Text, 
+StyleSheet,
 View,
-ImageBackground,
-TextInput,
-Vibration,
+Text,
 TouchableOpacity
 } from 'react-native';
-import React, {useState} from 'react';
+  
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
-import {useNavigation} from '@react-navigation/native';
 
+import Icon from '@assets/mascot.png';
+import InEmail from '@components/InEmail';
+import InPassword from '@components/InPassword';
+import Button from '@components/Button';
+
+import { StackTypes } from '@config/StackTypes';
+import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import  {auth} from '@config/firebase';
-
-import IconApp from '@components/IconApp';
-import imageBack from '@assets/loving.png';
-import { StackTypes } from '@routes/Stacks';
+import { Auth } from '@config/Firebase';
 
 const Signin = () => {
+  
   const navigation = useNavigation<StackTypes>();
-  const usersAuth = auth;
-  const [email, setEmail] = useState('');
-  const [errEmail, setErrEmail] = useState('') //*Email informado errado.
-  const [password, setPassword] = useState('');
-  const [errPassword, setErrPassword] = useState('') //*Senha informado errado.
+  const [email, setEamil] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [errEmail, setErroEmail] = useState('');
+  const [errPassword, setErroPassword] = useState('');
 
-  const login = ()=>{
-    signInWithEmailAndPassword(usersAuth, email, password)
-      .then(() => {
-        console.log('Entrado no app!');
-        navigation.navigate('Home');
-      })
-      .catch((err) => {
-        console.log({erro: err, msg: 'Erro ao Entrar!'});
-      });
-  }
-
-  const register = ()=>{
-    navigation.navigate('CreateUsers');
+  const create = ()=>{
     console.log('Registrando no app!');
+    navigation.navigate('CreateUsers');
   }
 
   const recover = ()=>{
-    navigation.navigate('RecoverUsers');
     console.log('Recuperando senha!');
+    navigation.navigate('RecoverUsers');
   }
 
   const validation = ()=>{
-    if(email != '' && password != ''){
-      login();
+    
+    if(email != null && password != null){
+      
+      const auths = Auth;
+      
+      signInWithEmailAndPassword(auths, email, password)
+        .then(() => {
+          // Signed in 
+          console.log('entrando no app...');
+          navigation.navigate('Home');
+        })
+        .catch((error) => {
+          // Err Signed in 
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log({erro:errorCode, errorMesg: errorMessage});
+        });
     }
-    if (email == '' && password == '') {
-      setErrEmail('*Email informado errado.');
-      setErrPassword('*Email informado errado.');
-      Vibration.vibrate();
+    if(email == null && password == null ){
+      console.log('email ou senha null');
+      setErroEmail('*Email informado errado.');
+      setErroPassword('*Senha informada errada.');
     }
-    if (email == '') {
-      setErrEmail('*Email informado errado.');
-      Vibration.vibrate();
+    if(email == null){
+      console.log('email null');
+      setErroEmail('*Email informado errado.');
     }
-    if (password == '') {
-      setErrPassword('*Email informado errado.');
-      Vibration.vibrate();
+    if(password == null){
+      console.log('senha null');
+      setErroPassword('*Senha informada errada.');
     }
   }
-
-
+  
   return (
-    <View style={styles.container}>
-      
-      <ImageBackground
-      style={styles.image_back}
-      source={imageBack}>
-        
-        <LinearGradient
+    <View style={styles.container}>   
+      <LinearGradient
         style={styles.container_gradient}
         colors={['transparent', 'rgba(0,0,0,0.3)',
         'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
         'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
-            
-          <Animatable.View
-          style={styles.container_title}
-          animation={'fadeInLeft'}
-          delay={800}>
 
-            <Text style={styles.title}>Bem Vindo(a)</Text>
-            
-            <Animatable.View
-            style={styles.logo}
-            animation={'fadeInDown'}
-            delay={1000}>
-              <IconApp/>
-            </Animatable.View>
+        <View style={styles.container_icon}>
+          <Animatable.Image
+            delay={200}
+            animation='flipInY'
+            source={Icon} 
+            style={styles.icon}
+            resizeMode='contain'
+          />
+        </View>
 
-          </Animatable.View>
-          
-          <Animatable.View
-          style={styles.from_inputs}
-          animation={'fadeInUp'}
-          delay={800}>
-
-            <View style={styles.container_inputs}>
-              <Text style={styles.lable}>Email</Text>
-                <TextInput style={styles.input}
-                  placeholder='Digite um email...'
-                  keyboardType='email-address'
-                  onChangeText={setEmail}
-                  value={email}
-                />
-                <Text style={styles.text_erro}>{errEmail}</Text>
-            </View>
-
-            <View style={styles.container_inputs}>
-              <Text style={styles.lable}>Password</Text>
-                <TextInput style={styles.input}
-                  placeholder='Digite sua senha...'
-                  keyboardType='visible-password'
-                  onChangeText={setPassword}
-                  value={password}
-                />
-                <Text style={styles.text_erro}>{errPassword}</Text>
-            </View>
-              
-            <View style={styles.container_inputs}>
-              <Text
-              onPress={recover} 
-              style={styles.label_recover}>
-                Esqueceu sua senha? Entre aqui!
-              </Text>
-            </View>
-
-            <View style={styles.container_inputs}>
-              <TouchableOpacity 
-              onPress={validation}
-              style={styles.button_login}>
-                <Text style={styles.label_login}>LOGIN</Text>
+        <Animatable.View 
+        delay={400}
+        animation='fadeInUpBig' 
+        style={styles.container_from_data}>
+          <LinearGradient
+          style={styles.container_gradient}
+          colors={['transparent', 'rgba(0,0,0,0.3)',
+          'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
+          'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
+            <View style={styles.container_data}>
+              <InEmail
+                labelColor='#000'
+                backColor='#FE0364'
+                in={setEamil}
+                erro={errEmail}
+              />
+              <InPassword
+                labelColor='#000'
+                backColor='#FE0364'
+                in={setPassword}
+                erro={errPassword}
+              />
+              <TouchableOpacity
+                onPress={recover}
+                style={styles.conateiner_recover}>
+                <Text style={styles.text_recover}>
+                  Esqueceu sua senha?
+                  <Text style={styles.text_recover_lick}>
+                    Entre aqui!
+                  </Text>
+                </Text>
               </TouchableOpacity>
-            </View>
-
-            <View  style={styles.container_inputs}>
-              <TouchableOpacity 
-              onPress={register}
-              style={styles.button_register}>
-                <Text style={styles.label_register}>
+              <Button
+                text='LOGIN'
+                event={validation}
+              />
+              <TouchableOpacity
+                onPress={create}
+                style={styles.conateiner_create}>
+                <Text style={styles.text_create}>
                   Não possui uma conta? Cadastre-se!
                 </Text>
               </TouchableOpacity>
             </View>
+          </LinearGradient>
+        </Animatable.View>
 
-          </Animatable.View>
-        </LinearGradient>
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
-
+  
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FE0364',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  image_back:{
-    flex: 1,
-    resizeMode: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    width:'100%',
-    height: 780,
   },
   container_gradient:{
     width: '100%',
     height: '100%'
   },
-  container_title:{
-    flex:3
+  container_icon:{
+    flex:1,
+    width:'100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  title:{
-    margin: '8%',
-    color: '#FFF',
-    fontSize: 26,
-    fontStyle: 'italic',
-    fontWeight: '900'
+  container_from_data:{
+    flex:2,
+    width:'100%',
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#A1A1A1',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
-  logo:{
-    marginTop: '10%'
+  container_data:{
+    marginTop: '2%',
+    marginStart: '8%',
+    marginEnd: '8%',
+    marginBottom: '2%'
   },
-  from_inputs:{
-    flex: 4,
-    borderTopWidth: 1,
-    borderStartWidth: 0.01,
-    borderEndWidth: 0.01,
-    borderStyle: 'solid',
-    borderColor: "#FFF",
-    borderTopEndRadius: 30,
-    borderTopStartRadius: 30,
+  icon:{
+    width: '60%',
+    height: '70%'
   },
-  container_inputs:{
-    marginHorizontal: '8%',
-    marginVertical: '2%'
+  conateiner_recover:{
+    marginStart: 8,
+    marginTop: 8,
+    marginBottom: 32
   },
-  lable:{
-    color:'#FFF',
-    fontSize: 16,
-    fontStyle: 'italic',
-    fontWeight: '400',
-    marginStart: 12,
-    marginTop: 14
-  },
-  input:{
-    backgroundColor: '#FE0364',
+  text_recover:{
     color: '#000',
-    borderRadius: 30,
-    padding:12
+    fontSize: 14,
+    fontWeight: '600'
   },
-  text_erro:{
+  text_recover_lick:{
     color: '#FFF',
-    fontSize: 14,
-    fontStyle:'italic',
-    fontWeight:'200',
-    marginStart: 12
+    fontWeight: 'bold'
   },
-  label_recover:{
-    color:'#FFF',
-    fontSize: 14,
-    fontStyle: 'italic',
-    fontWeight: '400',
-    marginStart: 12
+  conateiner_create:{
+    marginStart: '24%',
+    marginEnd: '24%',
+    marginTop: 2,
+    padding: 10,
+    backgroundColor: '#E0E0E0',
+    borderWidth: 1,
+    borderRadius: 8,
   },
-  button_login:{
-    backgroundColor: '#FE0364',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    padding: 12,
-    marginTop: 12, 
-    marginBottom: 12,
-    marginHorizontal: '4%',
-  },
-  label_login:{
-    color:'#FFF',
+  text_create:{
     fontSize: 16,
     fontStyle: 'italic',
-    fontWeight: '400',
-    marginStart: 14
-  },
-  button_register:{
-    backgroundColor: '#A1A1A1',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    padding: 8,
-    marginHorizontal: '20%',
-  },
-  label_register:{
-    textAlign: 'center',
-    color:'#000',
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginStart: 14
+    fontWeight: '600',
+    textAlign: 'center'
   }
 });
-
+  
 export default Signin;
+  

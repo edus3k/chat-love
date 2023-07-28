@@ -1,169 +1,169 @@
+import React, { useState } from 'react';
 import { 
 StyleSheet,
 View,
 Text,
-ImageBackground,
-TextInput,
-TouchableOpacity,
-Vibration,
+TouchableOpacity
 } from 'react-native';
-import React, {useState} from 'react';
+  
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
-import {useNavigation} from '@react-navigation/native';
 
-import IconApp from '@components/IconApp';
-import imageBack from '@assets/loving.png';
-import { StackTypes } from '@routes/Stacks';
+import Icon from '@assets/mascot.png';
+import InEmail from '@components/InEmail';
+import Button from '@components/Button';
+
+import { StackTypes } from '@config/StackTypes';
+import { useNavigation } from '@react-navigation/native';
+import { sendPasswordResetEmail } from "firebase/auth";
+import { Auth } from '@config/Firebase';
 
 const RecoverUsers = () => {
+  
     const navigation = useNavigation<StackTypes>();
-    const [email, setEmail] = useState('');
-    const [errEmail, setErrEmail] = useState('') //*Email informado errado.
+    const [email, setEamil] = useState(null);
+    const [errEmail, setErroEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    function recover(){
-        navigation.navigate('Signin');
-        console.log('Recuperando senha!');
+    const startLoading = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            console.log('recuperendo senha...');
+            navigation.navigate('Welcome');
+        },2000);
+    };
+
+    const goBack = ()=>{
+        navigation.goBack
     }
 
     const validation = ()=>{
-        if (email == null) {
-            setErrEmail('*Email informado errado.');
-            Vibration.vibrate();
-            return
+
+        if(email != null ){
+            const auth = Auth;
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                // Password reset email sent!
+                startLoading();
+            })
+            .catch((error) => {
+                // Err Password reset email sent!
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log({erro:errorCode, errorMesg: errorMessage});
+            });
         }
-        else{
-            recover();
+        if(email == null){
+            console.log('email null');
+            setErroEmail('*Email informado errado.');
         }
     }
-
+  
     return (
-    <View style={styles.container}>
-      
-        <ImageBackground
-        style={styles.image_back}
-        source={imageBack}>
-        
+        <View style={styles.container}>   
             <LinearGradient
-            style={styles.container_gradient}
-            colors={['transparent', 'rgba(0,0,0,0.3)',
-            'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
-            'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
-            
-                <Animatable.View
-                style={styles.logo}
-                animation={'fadeInDown'}
-                delay={800}>
-                    <IconApp/>
-                    <Text style={styles.title}>
-                        Informe seu email para recuperar sua senha
-                    </Text>
+                style={styles.container_gradient}
+                colors={['transparent', 'rgba(0,0,0,0.3)',
+                'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
+                'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
+
+                <View style={styles.container_icon}>
+                    <Animatable.Image
+                        delay={200}
+                        animation='flipInY'
+                        source={Icon} 
+                        style={styles.icon}
+                        resizeMode='contain'
+                    />
+                </View>
+
+                <Animatable.View 
+                delay={400}
+                animation='fadeInUpBig' 
+                style={styles.container_from_data}>
+                    <LinearGradient
+                    style={styles.container_gradient}
+                    colors={['transparent', 'rgba(0,0,0,0.3)',
+                    'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
+                    'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
+                        <View style={styles.container_data}>
+                            <Text style={styles.title}>
+                                Informe seu email para recuperar sua senha
+                            </Text>
+                            
+                            <InEmail
+                                labelColor='#000'
+                                backColor='#FE0364'
+                                in={setEamil}
+                                erro={errEmail}
+                            />
+                        
+                           <View style={styles.container_buttons}>
+                                <Button
+                                    text='RECOVER'
+                                    event={validation}
+                                />
+                                <Button
+                                    text='TO BACK'
+                                    event={goBack}
+                                />
+                           </View>
+                        </View>
+                    </LinearGradient>
                 </Animatable.View>
-
-                <Animatable.View
-                animation={'fadeInUp'}
-                delay={800}>
-                   
-                   <View style={styles.container_inputs}>
-                        <Text style={styles.lable}>Email</Text>
-                        <TextInput style={styles.input}
-                            placeholder='Digite um email...'
-                            keyboardType='email-address'
-                            onChangeText={setEmail}
-                            value={email}
-                        />
-                        <Text style={styles.text_erro}>{errEmail}</Text>
-                    </View>
-
-                    <View style={styles.container_inputs}>
-                        <TouchableOpacity 
-                        onPress={validation}
-                        style={styles.button_recover}>
-                            <Text style={styles.label_recover}>RECOVER</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                </Animatable.View>    
             </LinearGradient>
-        </ImageBackground>
-    </View>
+        </View>
     );
 }
-
-
+  
 const styles = StyleSheet.create({
-container: {
+  container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FE0364',
     alignItems: 'center',
     justifyContent: 'center',
-},
-image_back:{
-    flex: 1,
-    resizeMode: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    width:'100%',
-    height: 780,
-},
-container_gradient:{
+  },
+  container_gradient:{
     width: '100%',
     height: '100%'
-},
-title:{
-    marginTop: '12%',
-    marginHorizontal: '6%',
-    color: '#FFF',
-    fontSize: 20,
-    fontStyle: 'italic',
-    fontWeight: '600'
-},
-logo:{
-    marginTop: '10%'
-},
-container_inputs:{
-    marginHorizontal: '8%',
-    marginVertical: '2%'
-},
-lable:{
-    color:'#FFF',
-    fontSize: 16,
-    fontStyle: 'italic',
-    fontWeight: '400',
-    marginStart: 12,
-    marginTop: 14
-},
-input:{
-    backgroundColor: '#FE0364',
-    color: '#000',
-    borderRadius: 30,
-    padding:12
-},
-text_erro:{
-    color: '#FFF',
-    fontSize: 14,
-    fontStyle:'italic',
-    fontWeight:'200',
-    marginStart: 12
-},
-button_recover:{
-    backgroundColor: '#FE0364',
+  },
+  container_icon:{
+    flex:1,
+    width:'100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25,
-    padding: 12,
-    marginTop: 12, 
-    marginBottom: 12,
-    marginHorizontal: '4%',
-},
-label_recover:{
-    color:'#FFF',
-    fontSize: 16,
+  },
+  container_from_data:{
+    flex:2,
+    width:'100%',
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#A1A1A1',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+  },
+  container_data:{
+    marginTop: '2%',
+    marginStart: '8%',
+    marginEnd: '8%',
+    marginBottom: '2%'
+  },
+  icon:{
+    width: '60%',
+    height: '70%'
+  },
+  title:{
+    marginTop: 32,
+    marginBottom: 28,
+    color: '#00',
+    fontSize: 20,
     fontStyle: 'italic',
-    fontWeight: '400',
-    marginStart: 14
-}
+    fontWeight: '500'
+  },
+  container_buttons:{
+    marginTop: 34
+  }
 });
-    
+  
 export default RecoverUsers;
-    

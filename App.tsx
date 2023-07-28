@@ -1,14 +1,13 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
 
-import {NavigationContainer} from '@react-navigation/native'
-import Routes from '@routes/Stacks';
+import Dev from '@routes/Dev';
+import StacksApp from '@routes/StacksApp';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={'#FE0364'} barStyle={'default'}/>
-      <Routes/>
+      <Dev/>
     </NavigationContainer>
   );
 }
