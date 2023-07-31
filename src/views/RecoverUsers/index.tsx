@@ -162,7 +162,9 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   container_buttons:{
-    marginTop: 34
+    marginTop: 34,
+    marginStart: '8%',
+    marginEnd: '8%'
   }
 });
   

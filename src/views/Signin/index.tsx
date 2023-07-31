@@ -29,7 +29,7 @@ const Signin = () => {
 
   const create = ()=>{
     console.log('Registrando no app!');
-    navigation.navigate('CreateUsers');
+    navigation.navigate('DataUsers');
   }
 
   const recover = ()=>{
@@ -121,10 +121,12 @@ const Signin = () => {
                   </Text>
                 </Text>
               </TouchableOpacity>
-              <Button
-                text='LOGIN'
-                event={validation}
-              />
+              <View style={styles.container_button}>
+                <Button
+                  text='LOGIN'
+                  event={validation}
+                />
+              </View>
               <TouchableOpacity
                 onPress={create}
                 style={styles.conateiner_create}>
@@ -190,6 +192,10 @@ const styles = StyleSheet.create({
   text_recover_lick:{
     color: '#FFF',
     fontWeight: 'bold'
+  },
+  container_button:{
+    marginStart: '12%',
+    marginEnd: '12%'
   },
   conateiner_create:{
     marginStart: '24%',

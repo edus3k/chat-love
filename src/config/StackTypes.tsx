@@ -9,7 +9,11 @@ type StackNavigation = {
     CreateUsers: undefined,
     Home: undefined
     Profiler: undefined,
-    TabsBottom: undefined
+    TabsBottom: undefined,
+    DataUsers: undefined,
+    DataAge: undefined | {name: string},
+    DataDetail: undefined,
+    DataInfor: undefined,
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>

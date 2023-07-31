@@ -38,13 +38,12 @@ const styles = StyleSheet.create({
     letterSpacing: 6,
   },
   button:{
+    width: '100%',
     height: 50,
     backgroundColor: '#FE0364',
     borderWidth: 1,
     borderRadius: 12,
     textAlign: 'center',
-    marginStart: '10%',
-    marginEnd: '10%',
     padding: 10
   }
   
