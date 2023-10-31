@@ -18,7 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { Auth } from '@config/Firebase';
 
-const RecoverUsers = () => {
+const Recover = () => {
   
     const navigation = useNavigation<StackTypes>();
     const [email, setEamil] = useState(null);
@@ -84,9 +84,9 @@ const RecoverUsers = () => {
                 style={styles.container_from_data}>
                     <LinearGradient
                     style={styles.container_gradient}
-                    colors={['transparent', 'rgba(0,0,0,0.3)',
-                    'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
-                    'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
+                    colors={['transparent', 'rgba(0,0,0,0.2)',
+                    'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.5)','rgba(0,0,0,0.6)',
+                    'rgba(0,0,0,0.7)', 'rgba(0,0,0,0.8)']}>
                         <View style={styles.container_data}>
                             <Text style={styles.title}>
                                 Informe seu email para recuperar sua senha
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   container_icon:{
-    flex:1,
+    flex:1.8,
     width:'100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -157,15 +157,16 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 28,
     color: '#00',
-    fontSize: 20,
+    fontSize: 24,
     fontStyle: 'italic',
-    fontWeight: '500'
+    fontWeight: '600',
+    textAlign: 'justify'
   },
   container_buttons:{
-    marginTop: 34,
+    marginTop: 22,
     marginStart: '8%',
     marginEnd: '8%'
   }
 });
   
-export default RecoverUsers;
+export default Recover;

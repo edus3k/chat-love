@@ -1,4 +1,4 @@
-import React, {useState, MutableRefObject } from 'react';
+import React, {useState} from 'react';
 import {
 View,
 StyleSheet,
@@ -7,63 +7,85 @@ TextInput,
 Image,
 } from 'react-native';
 
+import Edit from '@assets/edit.png';
+
 export type In = {
-   in: MutableRefObject<any>[],
+    label: string,
+    describe: string,
+    erro: string,
+    in: ((text: string) => void ) | undefined | any,
+    labelColor: string,
+    backColor: string
 }
 
 const InAge = (props:In) =>{
-
-    const handleInputChange = (text:string, index:number) => {
-      if (text.length === 1 && index < props.in.length - 1) {
-        props.in[index + 1].current.focus(); // Foca no próximo input ao digitar um caractere
-        }
-    };
-
-    const placeholderIdex = (index:number)=>{
-        if(index == 0 || index == 1){
-            return 'D';
-        }
-        if(index == 2 || index == 3){
-            return 'M';
-        }
-        else{
-            return 'A';
-        }
-    }
-
+    
     return(
         <View style={styles.container}>
-            {props.in.map((ref, index) => (
+            <Text style={{
+                 color: props.labelColor,
+                 fontStyle: 'italic',
+                 fontSize: 14,
+                 fontWeight: '400',
+                 marginTop: 6,
+                 marginStart: 12,
+                 marginBottom: 6
+            }}>
+                {props.label}
+            </Text>
+            <View style={{
+                flexDirection: 'row',
+                width: '100%',
+                height: 50,
+                backgroundColor: props.backColor,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderColor: '#000',
+                borderRadius: 12,
+                padding: 2
+            }}>
+                <Image
+                    style={styles.ic_type}
+                    source={Edit}
+                />
                 <TextInput
                     style={styles.inputs}
-                    key={index}
-                    ref={ref}
-                    placeholder={placeholderIdex(index)}
-                    placeholderTextColor={'#FFF'}
-                    keyboardType="numeric"
-                    maxLength={1}
-                    onChangeText={(text) => handleInputChange(text, index)}
+                    placeholder= {props.describe}
+                    keyboardType='number-pad'
+                    maxLength={2}
+                    onChangeText={props.in}
                 />
-            ))}
+            </View>
+            <Text style={styles.erro}>
+                {props.erro}
+            </Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection: 'row',
-        width: '100%',
-        marginTop: 22,
-        alignItems: 'center',
-        justifyContent: 'center'
+        width: '50%',
+    },
+    ic_type:{
+        width: 18,
+        height: 18,
     },
     inputs:{
-        width: 30, 
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1, 
-        margin: 5, 
-        textAlign: 'center',
+        width: '84%',
+        height: '100%',
+        fontSize: 16,
+        padding: 12
+    },
+    erro:{
+        color: '#FFF',
+        fontStyle: 'italic',
+        fontSize: 12,
+        fontWeight: '200',
+        marginTop: 4,
+        marginStart: 12,
+        marginBottom: 4
     }
 });
 

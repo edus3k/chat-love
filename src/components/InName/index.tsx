@@ -66,8 +66,6 @@ const InName = (props:In) =>{
 const styles = StyleSheet.create({
     container:{
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10
     },
     ic_type:{
         width: 18,

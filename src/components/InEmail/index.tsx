@@ -51,6 +51,7 @@ const InEmail = (props:In) =>{
                     style={styles.inputs}
                     placeholder='Digite seu email...'
                     keyboardType='email-address'
+                    maxLength={20}
                     onChangeText={props.in}
                 />
             </View>
@@ -64,8 +65,6 @@ const InEmail = (props:In) =>{
 const styles = StyleSheet.create({
     container:{
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10
     },
     ic_type:{
         width: 18,

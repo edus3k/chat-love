@@ -95,9 +95,9 @@ const Signin = () => {
         style={styles.container_from_data}>
           <LinearGradient
           style={styles.container_gradient}
-          colors={['transparent', 'rgba(0,0,0,0.3)',
-          'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
-          'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
+          colors={['transparent', 'rgba(0,0,0,0.2)',
+          'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.5)','rgba(0,0,0,0.6)',
+          'rgba(0,0,0,0.7)', 'rgba(0,0,0,0.8)']}>
             <View style={styles.container_data}>
               <InEmail
                 labelColor='#000'
@@ -116,9 +116,6 @@ const Signin = () => {
                 style={styles.conateiner_recover}>
                 <Text style={styles.text_recover}>
                   Esqueceu sua senha?
-                  <Text style={styles.text_recover_lick}>
-                    Entre aqui!
-                  </Text>
                 </Text>
               </TouchableOpacity>
               <View style={styles.container_button}>
@@ -155,13 +152,13 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   container_icon:{
-    flex:1,
+    flex:1.2,
     width:'100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   container_from_data:{
-    flex:2,
+    flex:1.6,
     width:'100%',
     backgroundColor: '#FFF',
     borderWidth: 1,
@@ -185,29 +182,23 @@ const styles = StyleSheet.create({
     marginBottom: 32
   },
   text_recover:{
-    color: '#000',
+    color: '#FFF',
     fontSize: 14,
     fontWeight: '600'
-  },
-  text_recover_lick:{
-    color: '#FFF',
-    fontWeight: 'bold'
   },
   container_button:{
     marginStart: '12%',
     marginEnd: '12%'
   },
   conateiner_create:{
-    marginStart: '24%',
-    marginEnd: '24%',
-    marginTop: 2,
+    marginTop: 12,
+    marginStart: '20%',
+    marginEnd: '20%',
     padding: 10,
-    backgroundColor: '#E0E0E0',
-    borderWidth: 1,
-    borderRadius: 8,
   },
   text_create:{
-    fontSize: 16,
+    color: '#FFF',
+    fontSize: 18,
     fontStyle: 'italic',
     fontWeight: '600',
     textAlign: 'center'

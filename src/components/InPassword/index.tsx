@@ -73,6 +73,7 @@ const InPassword = (props:In) =>{
                 placeholder='Digite sua senha...'
                 keyboardType='visible-password'
                 onChangeText={props.in}
+                maxLength={8}
                 secureTextEntry={secure}
             />
             <TouchableOpacity onPress={stateSecure}>
@@ -92,8 +93,6 @@ const InPassword = (props:In) =>{
 const styles = StyleSheet.create({
     container:{
         width: '100%',
-        marginTop: 10,
-        marginBottom: 10
     },
     ic_type:{
         width: 18,

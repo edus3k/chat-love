@@ -28,7 +28,7 @@ const Button = (props:Btn) => {
     
 const styles = StyleSheet.create({
   container:{
-    marginBottom: 32
+    marginBottom: 12
   },
   button_text:{
     color: '#FFF',
