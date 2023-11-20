@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import Deve from '@views/Create';
+import Deve from '@views/Signin';
 
 const Stack = createNativeStackNavigator();
 

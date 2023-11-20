@@ -3,6 +3,7 @@ StyleSheet,
 View,
 Text,
 Image,
+ImageBackground,
 TouchableOpacity
 } from 'react-native';
 
@@ -10,8 +11,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 
-import Icon from '@assets/mascot.png';
+import Background from '@assets/background.jpg';
+import CadInfo from '@components/CadInfo';
 import { StackTypes } from '@config/StackTypes';
+
+import Mascot from '@assets/mascot.png'
+import Chat from '@assets/cardchat.png';
+import People from '@assets/people.png';
+import Cyber from '@assets/cyber.png';
 
 const Welcome = () => {
 
@@ -23,119 +30,111 @@ const Welcome = () => {
 
   return (
     <View style={styles.container}>   
-      <LinearGradient
-        style={styles.container_gradient}
+     <ImageBackground source={Background} style={styles.container_bakground}>
+        <LinearGradient style={styles.container_gradient}
         colors={['transparent', 'rgba(0,0,0,0.3)',
-        'rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)',
-        'rgba(0,0,0,0.9)', 'rgba(0,0,0,1)']}>
-
-        <View style={styles.container_icon}>
-          <Animatable.Image
-            delay={200}
-            animation='flipInY'
-            source={Icon} 
-            style={styles.icon}
-            resizeMode='contain'
-          />
-        </View>
-
-        <Animatable.View 
-        delay={700}
-        animation='fadeInUp' 
-        style={styles.container_text}>
-          
-          <Text style={styles.title}>Bem Vindo ao ChatLove</Text>
-          <Text style={styles.label}>Venha descobri um novo jeito de se relacionar.</Text>
-          <Text style={styles.label_button}>Faça o login para começar!</Text>
-                
-          <TouchableOpacity 
-            onPress={login}
-            style={styles.button}>
-            <Text style={styles.button_text}>Acessar</Text>
-          </TouchableOpacity>
-        </Animatable.View>
-
-      </LinearGradient>
+        'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.6)',
+        'rgba(0,0,0,0.7)', 'rgba(0,0,0,.8)']}>
+          <View style={styles.container_app}>
+            <View style={styles.container_name}>
+              <Image style={styles.icon} source={Mascot} />
+              <Text style={styles.text}>
+                BEM-VINDOS AO CHATLOVE
+              </Text>
+            </View>
+            <View style={styles.container_cads}>
+              <CadInfo
+              img={Chat}
+              text='Conecte-se com novos amigos e
+              colegas de forma rápida e simples, de 
+              maneira fácil e divertida.'/>
+              <CadInfo
+              img={People}
+              text='Troque fotos, vídeos e documentos 
+              facilmente, tornando cada conversa mais 
+              envolvente e personalizada.'/>
+              <CadInfo
+              img={Cyber}
+              text='Sua privacidade é nossa prioridade. 
+              Utilizamos os mais altos padrões de segurança 
+              para proteger suas conversas.'/>
+            </View>
+            <View style={styles.container_button}>
+              <TouchableOpacity style={styles.button}
+              onPress={login}>
+                <Text style={styles.button_text}>ACESSAR</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </LinearGradient>
+     </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#FE0364',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#F4F4F4F4',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  container_bakground:{
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    resizeMode: 'cover',
+    zIndex: 1
   },
   container_gradient:{
     width: '100%',
-    height: '100%'
-  },
-  container_icon:{
-    flex:2,
-    width:'100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  container_text:{
-    flex:1,
-    width:'100%',
-    backgroundColor: '#FFF',
-    borderWidth: 1,
-    borderColor: '#A1A1A1',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingTop: '5%',
-    paddingBottom: '5%',
-    paddingStart: '12%',
-    paddingEnd: '12%'
+  container_app:{
+    width: '80%',
   },
   icon:{
-    width: '60%',
-    height: '70%'
+    width: 94,
+    height: 94,
+    marginBottom: 16
   },
-  title:{
-    fontSize: 24,
-    textAlign: 'center',
+  container_name:{
+    alignItems: 'center',
+    marginBottom: 28
+  },
+  text:{
+    fontSize: 40,
+    letterSpacing: 4,
     fontStyle: 'italic',
-    fontWeight: '600',
-    marginTop: 20,
-    marginBottom: 10
+    fontWeight: '700',
+    color: '#F4F4F4F4'
   },
-  label:{
-    fontSize: 16,
-    textAlign: 'justify',
-    fontStyle: 'italic',
-    fontWeight: '400',
-    marginTop: 14,
-    marginBottom: 18
+  container_cads:{
+    alignItems: 'center'
   },
-  label_button:{
-    color:'#A1A1A1',
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '300',
-    marginTop: 8,
-    marginBottom: 22
-  },
-  button_text:{
-    color: '#FFF',
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '500',
-    letterSpacing: 6,
+  container_button:{
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button:{
+    width: '80%',
     height: 50,
-    backgroundColor: '#FE0364',
-    borderWidth: 1,
-    borderRadius: 12,
+    backgroundColor: '#F4F4F4F4',
+    justifyContent: 'center',
+    borderRadius: 16,
+    marginTop: 32
+  },
+  button_text:{
     textAlign: 'center',
-    marginStart: '10%',
-    marginEnd: '10%',
-    padding: 10
+    fontSize: 28,
+    fontWeight: '700',
+    letterSpacing: 6
   }
-  
 });
 
 export default Welcome;
