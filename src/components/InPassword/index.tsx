@@ -15,7 +15,7 @@ export type Password = {
     password: ((text: string) => void) | undefined;
 }
 
-const InPassword = (props:Password)=>{
+const InPassword = (props: Password)=>{
 
     let icOlhos = {
         off: ic_off,

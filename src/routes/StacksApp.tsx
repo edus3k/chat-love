@@ -26,8 +26,7 @@ const StacksApp = ()=>{
     return loading == true ? <Loading state={loading}/> : <StacksAuth/> 
   }else{
     console.log('users == true');
-    //return loading == true ? <Loading state={loading}/> : <StacksUsers/>
-    
+    return loading == true ? <Loading state={loading}/> : <StacksUsers/>
   }
 }
 

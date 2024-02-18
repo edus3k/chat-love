@@ -5,11 +5,11 @@ TextInput,
 Text,
 } from "react-native";
 
-export type email = {
+export type Email = {
     email: ((text: string) => void) | undefined;
 }
 
-const InEmail = (props:email)=>{
+const InEmail = (props: Email)=>{
     
     return(
         <View style={styles.container}>

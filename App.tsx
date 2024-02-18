@@ -6,7 +6,7 @@ import Dev from '@routes/Dev';
 const App = ()=>{
   return (
     <NavigationContainer>
-      <StacksApp/>
+      <Dev/>
     </NavigationContainer>
   );
 }

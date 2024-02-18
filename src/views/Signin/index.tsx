@@ -20,12 +20,12 @@ const Signin = () => {
   const {navigate} = useNavigation();
   const [email, setEamil] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
-  const [errEmail, setErroEmail] = useState('');
-  const [errPassword, setErroPassword] = useState('');
+  const [errEmail, setErrEmail] = useState('');
+  const [errPassword, setErrPassword] = useState('');
 
   const validation = ()=>{
-    setErroEmail('');
-    setErroPassword('');
+    setErrEmail('');
+    setErrPassword('');
 
     if(email != null && password != null){
       const auths = Auth;
@@ -46,28 +46,28 @@ const Signin = () => {
     }
     if(email == null && password == null ){
       console.log('email ou senha null');
-      setErroEmail('*Email informado errado.');
-      setErroPassword('*Senha informada errada.');
+      setErrEmail('*Email informado errado.');
+      setErrPassword('*Senha informada errada.');
       return 0;
     }
     if(email == null){
       console.log('email null');
-      setErroEmail('*Email informado errado.');
+      setErrEmail('*Email informado errado.');
       return 0;
     }
     if(password == null){
       console.log('senha null');
-      setErroPassword('*Senha informada errada.');
+      setErrPassword('*Senha informada errada.');
       return 0;
     }
   }
 
   const rRecover = ()=>{
-
+    navigate('Recover');
   }
 
   const rCreate = ()=>{
-    
+    navigate('Create');
   }
 
   return (
@@ -88,7 +88,8 @@ const Signin = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.container_login}>
-          <TouchableOpacity onPress={validation}>
+          <TouchableOpacity style={styles.button_login}
+          onPress={validation}>
             <Text style={styles.text_login}>
               Login
             </Text>
@@ -97,7 +98,10 @@ const Signin = () => {
         <View style={styles.container_create}>
           <TouchableOpacity onPress={rCreate}>
             <Text style={styles.text_create}>
-              Login
+              Não possui uma conta?
+            </Text>
+            <Text style={styles.text_create}>
+              Cadastre-se!
             </Text>
           </TouchableOpacity>
         </View>
@@ -122,25 +126,53 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   container_inputs:{
-    width: '90%'
+    width: '90%',
+    marginTop: 32
   },
   container_recover:{
-    
+    width: '50%',
+    marginTop: 12,
+    marginBottom: 32,
   },
   text_recover:{
-
+    fontSize: 16,
+    fontStyle: 'italic',
+    fontWeight: '500'
   },
   container_login:{
-    
+    width: '60%',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 12,
+    marginBottom: 32
+  },
+  button_login:{
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
   },
   text_login:{
-
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 4
   },
   container_create:{
-    
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 12,
+    marginBottom: 32
   },
   text_create:{
-
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '700'
   },
 });
   
